@@ -9,7 +9,7 @@ public class DotnetExambdContext : DbContext
 
     public DbSet<Car> Cars => Set<Car>();
 
-    public DbSet<Address> Addresss => Set<Address>();
+    public DbSet<Address> Address => Set<Address>();
 
     public DbSet<ClientAddress> ClientAddresses => Set<ClientAddress>();
     

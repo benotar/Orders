@@ -6,6 +6,7 @@ namespace Dotnet_Exam.Entities;
 public class Car
 {
     [Key]
+    [Column("id")]
     public int Id { get; set; }
 
     [Column("brand")]
@@ -17,6 +18,7 @@ public class Car
     [Column("year")]
     public int Year { get; set; }
 
+    [Column("client_id")]
     public int ClientId { get; set; }
     public Client? Client { get; set; }
 }

@@ -6,6 +6,7 @@ namespace Dotnet_Exam.Entities;
 public class Client
 {
     [Key]
+    [Column("id")]
     public int Id { get; set; }
 
     [Column("first_name")]
