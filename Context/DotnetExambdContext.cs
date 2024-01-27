@@ -17,8 +17,5 @@ public class DotnetExambdContext : DbContext
 
     public DotnetExambdContext(DbContextOptions<DotnetExambdContext> options)
         :base(options)
-    {
-        Database.EnsureDeleted();
-        Database.EnsureCreated();
-    }
+    { }
 }
