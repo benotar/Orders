@@ -13,4 +13,6 @@ public class Address
 
     [Column("number")]
     public int Number { get; set; }
+
+    public List<ClientAddress> ClientAddresses {  get; set; } = new List<ClientAddress>();
 }
