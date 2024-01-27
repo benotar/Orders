@@ -19,6 +19,6 @@ public class Car
     public int Year { get; set; }
 
     [Column("client_id")]
-    public int ClientId { get; set; }
+    public int? ClientId { get; set; }
     public Client? Client { get; set; }
 }
