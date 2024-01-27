@@ -15,7 +15,7 @@ public class DotnetExambdContext : DbContext
     
     public DbSet<Orders> Orders => Set<Orders>();
 
-    public DotnetExambdContext(DbContextOptions<DbContextOptions> options)
+    public DotnetExambdContext(DbContextOptions<DotnetExambdContext> options)
         :base(options)
     {
         Database.EnsureDeleted();
