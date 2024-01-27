@@ -15,5 +15,8 @@ public class Client
     public string? LastName { get; set; }
 
     public List<Car> Cars { get; set; } = new List<Car>();
-    public List<ClientAddress> ClientAddresses = new List<ClientAddress>();
+
+    public List<ClientAddress> ClientAddresses { get; set; } = new List<ClientAddress>();
+
+    public List<Orders> Orders { get; set; } = new List<Orders>();
 }
