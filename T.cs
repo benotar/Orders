@@ -19,35 +19,53 @@ public class T
             db.Database.EnsureDeleted();
             db.Database.EnsureCreated();
 
-            List<Client> clients = new List<Client>
-                {
-                    new Client {FirstName = "Ivan", LastName = "Zhmur"},
-                    new Client {FirstName = "Leonid", LastName = "Kravchuk"},
-                    new Client {FirstName = "Leonid", LastName = "Kuchma"},
-                    new Client {FirstName = "Victor", LastName = "Ushenko"},
-                    new Client {FirstName = "Victor", LastName = "Yanykovuch"},
-                    new Client {FirstName = "Petro", LastName = "Poroshenko"},
-                    new Client {FirstName = "Volodumur", LastName = "Zelenskyi"},
-                };
+            AddClients(db);
+            AddCars(db);
+            AddAddresses(db);
+            AddClientAddresses(db);
 
-            db.Clients.AddRange(clients);
-            db.SaveChanges();
-            List<Car> cars = new List<Car>
-                {
-                    new Car
-                    {
-                        Client = db.Clients.FirstOrDefault(c => c.LastName == "Zhmur"),
-                        Brand = "Toyota",
-                        Model = "Camry",
-                        Year = 2020
-                    },
-                    new Car
-                    {
-                        Client = null,
-                        Brand = "Ford",
-                        Model = "Mustang",
-                        Year = 2018
-                    },
+
+
+
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+    }
+
+    private static void AddClients(DotnetExambdContext db)
+    {
+        db.Clients.AddRange(
+            new Client { FirstName = "Ivan", LastName = "Zhmur" },
+            new Client { FirstName = "Leonid", LastName = "Kravchuk" },
+            new Client { FirstName = "Leonid", LastName = "Kuchma" },
+            new Client { FirstName = "Victor", LastName = "Yushchenko" },
+            new Client { FirstName = "Victor", LastName = "Yanukovych" },
+            new Client { FirstName = "Petro", LastName = "Poroshenko" },
+            new Client { FirstName = "Volodumur", LastName = "Zelenskyi" }
+            );
+
+        db.SaveChanges();
+    }
+
+    private static void AddCars(DotnetExambdContext db)
+    {
+
+        db.Cars.AddRange(new Car
+        {
+            Client = db.Clients.FirstOrDefault(c => c.LastName == "Zhmur"),
+            Brand = "Toyota",
+            Model = "Camry",
+            Year = 2020
+        },
+        new Car
+        {
+            Client = null,
+            Brand = "Ford",
+            Model = "Mustang",
+            Year = 2018
+        },
                     new Car
                     {
                         Client = db.Clients.FirstOrDefault(c => c.LastName == "Zelenskyi"),
@@ -57,7 +75,7 @@ public class T
                     },
                     new Car
                     {
-                        Client =  db.Clients.FirstOrDefault(c => c.LastName == "Poroshenko"),
+                        Client = db.Clients.FirstOrDefault(c => c.LastName == "Poroshenko"),
                         Brand = "Chevrolet",
                         Model = "Impala",
                         Year = 2021
@@ -89,20 +107,44 @@ public class T
                         Brand = "Mitsubishi",
                         Model = "Lancer X",
                         Year = 2017
-                    }
-                };
+                    });
 
-            db.Cars.AddRange(cars);
-            db.SaveChanges();
+        db.SaveChanges();
+    }
 
-            //List<Address> addresses = new List<Address>
-            //{
-            //    new Address { Street = "", Number = };
-            //};
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine(ex.Message);
-        }
+    private static void AddAddresses(DotnetExambdContext db)
+    {
+        db.Address.AddRange(
+            new Address { City = "Kyiv", Street = "Khreshchatyk Street", Number = 123 },
+            new Address { City = "Lviv", Street = "Prymiska Street", Number = 456 },
+                new Address { City = "Odessa", Street = "Deribasivska Street", Number = 789 },
+                new Address { City = "Kharkiv", Street = "Sumska Street", Number = 101 },
+                new Address { City = "Dnipro", Street = "Shevchenko Street", Number = 202 },
+                new Address { City = "Zaporizhzhia", Street = "Soborna Street", Number = 303 },
+                new Address { City = "Vinnytsia", Street = "Teatralna Street", Number = 404 },
+                new Address { City = "Ivano-Frankivsk", Street = "Hrushevskoho Street", Number = 505 },
+                new Address { City = "Zhytomyr", Street = "Kyivska Street", Number = 606 },
+                new Address { City = "Ternopil", Street = "Sagaidachnoho Street", Number = 707 }
+            );
+
+        db.SaveChanges();
+    }
+
+    private static void AddClientAddresses(DotnetExambdContext db)
+    {
+        db.ClientAddresses.AddRange(
+            new ClientAddress
+            {
+                Client = db.Clients.FirstOrDefault(c => c.LastName.Equals("Zhmur")),
+                Address = db.Address.FirstOrDefault(a => a.Street.Equals("Shevchenko Street"))
+            },
+            new ClientAddress
+            {
+                Client = db.Clients.FirstOrDefault(c => c.LastName.Equals("Kuchma")),
+                Address = db.Address.FirstOrDefault(a => a.Street.Equals("Sagaidachnoho Street"))
+            }
+            );
+
+        db.SaveChanges();
     }
 }
