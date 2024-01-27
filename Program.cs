@@ -20,5 +20,7 @@ DbContextOptions<DotnetExambdContext> options = optionsBuilder.UseMySql(connecti
 
 using (DotnetExambdContext db = new DotnetExambdContext(options))
 {
+    db.Database.EnsureDeleted();
+    db.Database.EnsureCreated();
 
 }
