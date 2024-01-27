@@ -9,6 +9,9 @@ public class Address
     [Column("id")]
     public int Id { get; set; }
 
+    [Column("city")]
+    public string? City { get; set; }
+
     [Column("street")]
     public string? Street { get; set; }
 
