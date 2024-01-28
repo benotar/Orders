@@ -36,15 +36,13 @@ public class T
 
     private static void AddClients(DotnetExambdContext db)
     {
-        db.Clients.AddRange(
-            new Client { FirstName = "Ivan", LastName = "Zhmur" },
+        db.Clients.AddRange(new Client { FirstName = "Ivan", LastName = "Zhmur" },
             new Client { FirstName = "Leonid", LastName = "Kravchuk" },
             new Client { FirstName = "Leonid", LastName = "Kuchma" },
             new Client { FirstName = "Victor", LastName = "Yushchenko" },
             new Client { FirstName = "Victor", LastName = "Yanukovych" },
             new Client { FirstName = "Petro", LastName = "Poroshenko" },
-            new Client { FirstName = "Volodumur", LastName = "Zelenskyi" }
-            );
+            new Client { FirstName = "Volodumur", LastName = "Zelenskyi" });
 
         db.SaveChanges();
     }
@@ -114,36 +112,57 @@ public class T
 
     private static void AddAddresses(DotnetExambdContext db)
     {
-        db.Address.AddRange(
-            new Address { City = "Kyiv", Street = "Khreshchatyk Street", Number = 123 },
-            new Address { City = "Lviv", Street = "Prymiska Street", Number = 456 },
-                new Address { City = "Odessa", Street = "Deribasivska Street", Number = 789 },
-                new Address { City = "Kharkiv", Street = "Sumska Street", Number = 101 },
-                new Address { City = "Dnipro", Street = "Shevchenko Street", Number = 202 },
-                new Address { City = "Zaporizhzhia", Street = "Soborna Street", Number = 303 },
-                new Address { City = "Vinnytsia", Street = "Teatralna Street", Number = 404 },
-                new Address { City = "Ivano-Frankivsk", Street = "Hrushevskoho Street", Number = 505 },
-                new Address { City = "Zhytomyr", Street = "Kyivska Street", Number = 606 },
-                new Address { City = "Ternopil", Street = "Sagaidachnoho Street", Number = 707 }
-            );
+        db.Address.AddRange(new Address { City = "Kyiv", Street = "Khreshchatyk Street", Number = 23 },
+            new Address { City = "Lviv", Street = "Prymiska Street", Number = 46 },
+            new Address { City = "Odessa", Street = "Deribasivska Street", Number = 79 },
+            new Address { City = "Kharkiv", Street = "Sumska Street", Number = 101 },
+            new Address { City = "Dnipro", Street = "Shevchenko Street", Number = 22 },
+            new Address { City = "Zaporizhzhia", Street = "Soborna Street", Number = 33 },
+            new Address { City = "Vinnytsia", Street = "Teatralna Street", Number = 44 },
+            new Address { City = "Ivano-Frankivsk", Street = "Hrushevskoho Street", Number = 55 },
+            new Address { City = "Zhytomyr", Street = "Kyivska Street", Number = 66 },
+            new Address { City = "Ternopil", Street = "Sagaidachnoho Street", Number = 77 });
 
         db.SaveChanges();
     }
 
     private static void AddClientAddresses(DotnetExambdContext db)
     {
-        db.ClientAddresses.AddRange(
-            new ClientAddress
-            {
-                Client = db.Clients.FirstOrDefault(c => c.LastName.Equals("Zhmur")),
-                Address = db.Address.FirstOrDefault(a => a.Street.Equals("Shevchenko Street"))
-            },
-            new ClientAddress
-            {
-                Client = db.Clients.FirstOrDefault(c => c.LastName.Equals("Kuchma")),
-                Address = db.Address.FirstOrDefault(a => a.Street.Equals("Sagaidachnoho Street"))
-            }
-            );
+        db.ClientAddresses.AddRange(new ClientAddress
+        {
+            Client = db.Clients.FirstOrDefault(c => c.LastName.Equals("Zhmur")),
+            Address = db.Address.FirstOrDefault(a => a.Street.Equals("Shevchenko Street"))
+        },
+        new ClientAddress
+        {
+            Client = db.Clients.FirstOrDefault(c => c.LastName.Equals("Kuchma")),
+            Address = db.Address.FirstOrDefault(a => a.Street.Equals("Sagaidachnoho Street"))
+        },
+        new ClientAddress
+        {
+            Client = db.Clients.FirstOrDefault(c => c.LastName.Equals("Kuchma")),
+            Address = db.Address.FirstOrDefault(a => a.Street.Equals("Prymiska Street"))
+        },
+        new ClientAddress
+        {
+            Client = db.Clients.FirstOrDefault(c => c.LastName.Equals("Zelenskyi")),
+            Address = db.Address.FirstOrDefault(a => a.Street.Equals("Deribasivska Street"))
+        },
+        new ClientAddress
+        {
+            Client = db.Clients.FirstOrDefault(c => c.LastName.Equals("Poroshenko")),
+            Address = db.Address.FirstOrDefault(a => a.Street.Equals("Kyivska Street"))
+        },
+        new ClientAddress
+        {
+            Client = db.Clients.FirstOrDefault(c => c.LastName.Equals("Yushchenko")),
+            Address = db.Address.FirstOrDefault(a => a.Street.Equals("Soborna Street"))
+        },
+        new ClientAddress
+        {
+            Client = db.Clients.FirstOrDefault(c => c.LastName.Equals("Kravchuk")),
+            Address = db.Address.FirstOrDefault(a => a.Street.Equals("Hrushevskoho Street"))
+        });
 
         db.SaveChanges();
     }
