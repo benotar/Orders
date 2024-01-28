@@ -20,13 +20,14 @@ public class T
             db.Database.EnsureCreated();
 
             AddClients(db);
+
             AddCars(db);
+            
             AddAddresses(db);
+            
             AddClientAddresses(db);
-
-
-
-
+            
+            AddOrders(db);
         }
         catch (Exception ex)
         {
@@ -169,6 +170,43 @@ public class T
 
     private static void AddOrders(DotnetExambdContext db)
     {
-        
+        db.Orders.AddRange(new Order
+        {
+            Client = db.Clients.FirstOrDefault(c => c.LastName.Equals("Zhmur")),
+            OrderDate = new DateTime(2024, 01, 28, 19, 34, 0),
+            TotalAmount = 1500
+        },
+        new Order
+        {
+            Client = db.Clients.FirstOrDefault(c => c.LastName.Equals("Zelenskyi")),
+            OrderDate = new DateTime(2024, 01, 23, 15, 35, 22),
+            TotalAmount = 500
+        },
+        new Order
+        {
+            Client = db.Clients.FirstOrDefault(c => c.LastName.Equals("Kuchma")),
+            OrderDate = new DateTime(2007, 03, 12, 22, 59, 59),
+            TotalAmount = 2007
+        },
+        new Order
+        {
+            Client = db.Clients.FirstOrDefault(c => c.LastName.Equals("Poroshenko")),
+            OrderDate = new DateTime(2014, 04, 22, 10, 30, 15),
+            TotalAmount = 1909
+        },
+        new Order
+        {
+            Client = db.Clients.FirstOrDefault(c => c.LastName.Equals("Yushchenko")),
+            OrderDate = new DateTime(2004, 11, 4, 01, 01, 11),
+            TotalAmount = 1990
+        },
+        new Order
+        {
+            Client = db.Clients.FirstOrDefault(c => c.LastName.Equals("Yanukovych")),
+            OrderDate = new DateTime(2010, 10, 8, 20, 03, 22),
+            TotalAmount = 5000
+        });
+
+        db.SaveChanges();
     }
 }
