@@ -13,7 +13,7 @@ public class DotnetExambdContext : DbContext
 
     public DbSet<ClientAddress> ClientAddresses => Set<ClientAddress>();
     
-    public DbSet<Orders> Orders => Set<Orders>();
+    public DbSet<Order> Orders => Set<Order>();
 
     public DotnetExambdContext(DbContextOptions<DotnetExambdContext> options)
         :base(options)

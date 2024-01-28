@@ -19,5 +19,5 @@ public class Client
 
     public List<ClientAddress> ClientAddresses { get; set; } = new List<ClientAddress>();
 
-    public List<Orders> Orders { get; set; } = new List<Orders>();
+    public List<Order> Orders { get; set; } = new List<Order>();
 }

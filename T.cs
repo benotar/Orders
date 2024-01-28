@@ -166,4 +166,9 @@ public class T
 
         db.SaveChanges();
     }
+
+    private static void AddOrders(DotnetExambdContext db)
+    {
+        
+    }
 }

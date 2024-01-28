@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Dotnet_Exam.Entities;
 
-public class Orders
+public class Order
 {
     [Key]
     [Column("id")]
