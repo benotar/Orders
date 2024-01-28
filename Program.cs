@@ -18,8 +18,12 @@ DbContextOptionsBuilder<DotnetExambdContext> optionsBuilder = new DbContextOptio
 
 DbContextOptions<DotnetExambdContext> options = optionsBuilder.UseMySql(connectionString, ServerVersion.Parse("8.0.30-mysql")).Options;
 
-T.AddDataToDataBase(options);
+DataBaseOperations.AddDataToDataBase(options);
 
-T.PrintMinAmountOrder(options);
+DataBaseOperations.PrintMinAmountOrder(options);
+Console.WriteLine();
 
-T.PrintMaxAmountOrder(options);
+DataBaseOperations.PrintMaxAmountOrder(options);
+Console.WriteLine();
+
+DataBaseOperations.PrintOrderByYearCar(options);

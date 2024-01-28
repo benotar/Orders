@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Dotnet_Exam;
 
-public class T
+public class DataBaseOperations
 {
     /// <summary>
     /// The data is hardcoded as this is an learning project.
@@ -51,6 +51,7 @@ public class T
             Console.WriteLine($"Order: {order.Id} | Client {order.Client?.Id}. {order.Client?.FirstName} {order.Client?.LastName} | Order date: {order.OrderDate} | Total amount {order.TotalAmount:N2}");
         }
     }
+
     public static void PrintMaxAmountOrder(DbContextOptions<DotnetExambdContext> options)
     {
         using DotnetExambdContext db = new DotnetExambdContext(options);
@@ -66,6 +67,26 @@ public class T
         {
             Console.WriteLine($"Order: {order.Id} | Client {order.Client?.Id}. {order.Client?.FirstName} {order.Client?.LastName} | Order date: {order.OrderDate} | Total amount {order.TotalAmount:N2}");
         }
+    }
+
+    public static void PrintOrderByYearCar(DbContextOptions<DotnetExambdContext> options)
+    {
+        using DotnetExambdContext db = new DotnetExambdContext(options);
+
+        var res = db.Cars.FromSqlInterpolated($@" 
+            SELECT Cars.id, Cars.client_id, Cars.brand, Cars.model, Cars.year,
+            Clients.first_name, Clients.last_name
+            FROM Cars
+            JOIN Clients ON Clients.id = Cars.client_id
+            GROUP BY Cars.id, Cars.client_id, Cars.brand, Cars.model, Cars.year,
+            Clients.first_name, Clients.last_name
+            ORDER BY Cars.year ASC").Include(c => c.Client).ToList();
+
+        foreach (var car in res)
+        {
+            Console.WriteLine($"Car {car.Id}. {car.Brand} {car.Model}, {car.Year} | Owner: {car.Client?.FirstName} {car.Client?.LastName}");
+        }
+
     }
 
     private static void AddClients(DotnetExambdContext db)
