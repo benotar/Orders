@@ -35,6 +35,39 @@ public class T
         }
     }
 
+    public static void PrintMinAmountOrder(DbContextOptions<DotnetExambdContext> options)
+    {
+        using DotnetExambdContext db = new DotnetExambdContext(options);
+
+        var res = db.Orders.FromSqlRaw("SELECT Orders.id, Orders.client_id, Orders.order_date, Orders.total_amount, " +
+            "Clients.first_name, Clients.last_name " +
+            "FROM Orders " +
+            "JOIN Clients ON Clients.id = Orders.client_id " +
+            "WHERE Orders.total_amount = (SELECT MIN(Orders.total_amount) FROM Orders)")
+            .Include(o => o.Client);
+
+        foreach (var order in res)
+        {
+            Console.WriteLine($"Order: {order.Id} | Client {order.Client?.Id}. {order.Client?.FirstName} {order.Client?.LastName} | Order date: {order.OrderDate} | Total amount {order.TotalAmount:N2}");
+        }
+    }
+    public static void PrintMaxAmountOrder(DbContextOptions<DotnetExambdContext> options)
+    {
+        using DotnetExambdContext db = new DotnetExambdContext(options);
+
+        var res = db.Orders.FromSqlRaw("SELECT Orders.id, Orders.client_id, Orders.order_date, Orders.total_amount, " +
+            "Clients.first_name, Clients.last_name " +
+            "FROM Orders " +
+            "JOIN Clients ON Clients.id = Orders.client_id " +
+            "WHERE Orders.total_amount = (SELECT MAX(Orders.total_amount) FROM Orders)")
+            .Include(o => o.Client);
+
+        foreach (var order in res)
+        {
+            Console.WriteLine($"Order: {order.Id} | Client {order.Client?.Id}. {order.Client?.FirstName} {order.Client?.LastName} | Order date: {order.OrderDate} | Total amount {order.TotalAmount:N2}");
+        }
+    }
+
     private static void AddClients(DotnetExambdContext db)
     {
         db.Clients.AddRange(new Client { FirstName = "Ivan", LastName = "Zhmur" },
