@@ -22,11 +22,11 @@ public class T
             AddClients(db);
 
             AddCars(db);
-            
+
             AddAddresses(db);
-            
+
             AddClientAddresses(db);
-            
+
             AddOrders(db);
         }
         catch (Exception ex)
@@ -65,48 +65,48 @@ public class T
             Model = "Mustang",
             Year = 2018
         },
-                    new Car
-                    {
-                        Client = db.Clients.FirstOrDefault(c => c.LastName == "Zelenskyi"),
-                        Brand = "Honda",
-                        Model = "Civic",
-                        Year = 2019
-                    },
-                    new Car
-                    {
-                        Client = db.Clients.FirstOrDefault(c => c.LastName == "Poroshenko"),
-                        Brand = "Chevrolet",
-                        Model = "Impala",
-                        Year = 2021
-                    },
-                    new Car
-                    {
-                        Client = db.Clients.FirstOrDefault(c => c.LastName == "Yanykovuch"),
-                        Brand = "Tesla",
-                        Model = "Model S",
-                        Year = 2022
-                    },
-                    new Car
-                    {
-                        Client = db.Clients.FirstOrDefault(c => c.LastName == "Kuchma"),
-                        Brand = "BMW",
-                        Model = "X5",
-                        Year = 2020
-                    },
-                    new Car
-                    {
-                        Client = db.Clients.FirstOrDefault(c => c.LastName == "Ushenko"),
-                        Brand = "Mercedes-Benz",
-                        Model = "C-Class",
-                        Year = 2021
-                    },
-                    new Car
-                    {
-                        Client = db.Clients.FirstOrDefault(c => c.LastName == "Zhmur"),
-                        Brand = "Mitsubishi",
-                        Model = "Lancer X",
-                        Year = 2017
-                    });
+        new Car
+        {
+            Client = db.Clients.FirstOrDefault(c => c.LastName == "Zelenskyi"),
+            Brand = "Honda",
+            Model = "Civic",
+            Year = 2019
+        },
+        new Car
+        {
+            Client = db.Clients.FirstOrDefault(c => c.LastName == "Poroshenko"),
+            Brand = "Chevrolet",
+            Model = "Impala",
+            Year = 2021
+        },
+        new Car
+        {
+            Client = db.Clients.FirstOrDefault(c => c.LastName == "Yanykovuch"),
+            Brand = "Tesla",
+            Model = "Model S",
+            Year = 2022
+        },
+        new Car
+        {
+            Client = db.Clients.FirstOrDefault(c => c.LastName == "Kuchma"),
+            Brand = "BMW",
+            Model = "X5",
+            Year = 2020
+        },
+        new Car
+        {
+            Client = db.Clients.FirstOrDefault(c => c.LastName == "Ushenko"),
+            Brand = "Mercedes-Benz",
+            Model = "C-Class",
+            Year = 2021
+        },
+        new Car
+        {
+            Client = db.Clients.FirstOrDefault(c => c.LastName == "Zhmur"),
+            Brand = "Mitsubishi",
+            Model = "Lancer X",
+            Year = 2017
+        });
 
         db.SaveChanges();
     }
