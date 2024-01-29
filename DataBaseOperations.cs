@@ -111,6 +111,10 @@ public class DataBaseOperations
         }
     }
 
+
+
+
+    // Privates methods
     private static void AddClients(DotnetExambdContext db)
     {
         db.Clients.AddRange(new Client { FirstName = "Ivan", LastName = "Zhmur" },
