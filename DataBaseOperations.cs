@@ -1,6 +1,7 @@
 ﻿using Dotnet_Exam.Context;
 using Dotnet_Exam.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Channels;
 
 namespace Dotnet_Exam;
 
@@ -177,6 +178,63 @@ public class DataBaseOperations
         Console.WriteLine($"Client: {client.FirstName} {client.LastName} | Total amount: {total:N2}");
     }
 
+    public static void PrintAllClients(DbContextOptions<DotnetExambdContext> options)
+    {
+        using var db = new DotnetExambdContext(options);
+
+        var r = db.Clients
+            .Include(client => client.Cars)
+            .Include(client => client.ClientAddresses)
+                .ThenInclude(clientAddresses => clientAddresses.Address)
+            .Include(client => client.Orders)
+            .ToList();
+
+        foreach (var i in r)
+        {
+            Console.WriteLine($"Client: {i.Id}. {i.FirstName} {i.LastName}");
+
+            if (i.Cars.Count > 0)
+            {
+                Console.WriteLine("Cars:");
+                foreach (var car in i.Cars)
+                {
+                    Console.WriteLine($"Car: {car.Id}. Brand: {car.Brand} | Model: {car.Model} | Year: {car.Year}");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Cars: N/A");
+            }
+
+            if (i.ClientAddresses.Count > 0)
+            {
+                Console.WriteLine("Addresses:");
+
+                foreach (var clientAddress in i.ClientAddresses)
+                {
+                    Console.WriteLine($"Address: {clientAddress.Address.Id}. City: {clientAddress.Address.City}, {clientAddress.Address.Street} {clientAddress.Address.Number}");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Addresses: N/A");
+            }
+            if (i.Orders.Count > 0)
+            {
+                Console.WriteLine("Orders:");
+                foreach (var order in i.Orders)
+                {
+                    Console.WriteLine($"Order: {order.Id}. Order date: {order.OrderDate}, Total amount: {order.TotalAmount:N2}");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Orders: N/A");
+            }
+
+            Console.WriteLine();
+        }
+    }
 
     // Privates methods
     private static void AddClients(DotnetExambdContext db)

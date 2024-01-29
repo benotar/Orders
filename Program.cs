@@ -35,4 +35,6 @@ DataBaseOperations.AddDataToDataBase(options);
 
 //DataBaseOperations.PrintOrdersByDateRange(options, new DateTime(2014, 01, 29), DateTime.Now);
 
-DataBaseOperations.PrintTotalAmountByClient(options, "Zhmur");
+//DataBaseOperations.PrintTotalAmountByClient(options, "Zhmur");
+
+DataBaseOperations.PrintAllClients(options);
