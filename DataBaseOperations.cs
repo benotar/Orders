@@ -48,7 +48,7 @@ public class DataBaseOperations
             .FirstOrDefault();
 
         Console.WriteLine($"Order: {order?.Id} | Client {order?.Client?.Id}. {order?.Client?.FirstName} {order?.Client?.LastName} " +
-            $"| Order date: {order?.OrderDate} | Total amount {order?.TotalAmount:N2}");
+            $"| Order date: {order?.OrderDate} | Total amount: {order?.TotalAmount:N2}");
     }
 
     public static void PrintMaxAmountOrder(DbContextOptions<DotnetExambdContext> options)
@@ -64,7 +64,7 @@ public class DataBaseOperations
             .FirstOrDefault();
 
         Console.WriteLine($"Order: {order?.Id} | Client {order?.Client?.Id}. {order?.Client?.FirstName} {order?.Client?.LastName} " +
-            $"| Order date: {order?.OrderDate} | Total amount {order?.TotalAmount:N2}");
+            $"| Order date: {order?.OrderDate} | Total amount: {order?.TotalAmount:N2}");
     }
 
     public static void PrintOrderByYearCar(DbContextOptions<DotnetExambdContext> options)
@@ -87,6 +87,28 @@ public class DataBaseOperations
             Console.WriteLine($"Car {car.Id}. {car.Brand} {car.Model}, {car.Year} | Owner: {car.Client?.FirstName} {car.Client?.LastName}");
         }
 
+    }
+
+    public static void PrintOrdersByClient(DbContextOptions<DotnetExambdContext> options, string? clientLastName)
+    {
+        using var db = new DotnetExambdContext(options);
+
+        if(!db.Clients.Any(c => c.LastName.Equals(clientLastName)))
+        {
+            Console.WriteLine("Client not found!");
+            
+            return;
+        }
+
+        List<Order>? orders = db.Orders.Where(order => order.Client.LastName!.Equals(clientLastName))
+        .Include(order2 => order2.Client)
+        .ToList();
+
+        foreach (Order order in orders)
+        {
+            Console.WriteLine($"Order: {order.Id} | Client: {order.Client?.Id}. {order.Client?.FirstName} {order.Client?.LastName} " +
+                $"| Order date: {order.OrderDate} | Total amount: {order.TotalAmount:N2}");
+        }
     }
 
     private static void AddClients(DotnetExambdContext db)
@@ -259,6 +281,12 @@ public class DataBaseOperations
             Client = db.Clients.FirstOrDefault(c => c.LastName.Equals("Yanukovych")),
             OrderDate = new DateTime(2010, 10, 8, 20, 03, 22),
             TotalAmount = 5000
+        },
+        new Order
+        {
+            Client = db.Clients.FirstOrDefault(c => c.LastName.Equals("Zhmur")),
+            OrderDate = new DateTime(2024, 01, 29, 15, 35, 22),
+            TotalAmount = 10000.22m
         });
 
         db.SaveChanges();
