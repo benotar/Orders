@@ -93,10 +93,10 @@ public class DataBaseOperations
     {
         using var db = new DotnetExambdContext(options);
 
-        if(!db.Clients.Any(c => c.LastName.Equals(clientLastName)))
+        if (!db.Clients.Any(c => c.LastName.Equals(clientLastName)))
         {
-            Console.WriteLine("Client not found!");
-            
+            Console.WriteLine($"Client {clientLastName} not found!");
+
             return;
         }
 
@@ -111,7 +111,34 @@ public class DataBaseOperations
         }
     }
 
+    public static void PrintOrdersByCity(DbContextOptions<DotnetExambdContext> options, string? city)
+    {
+        using var db = new DotnetExambdContext(options);
 
+        if (!db.Address.Any(address => address.City.Equals(city)))
+        {
+            Console.WriteLine($"City {city} not found!");
+
+            return;
+        }
+
+        List<Order>? orders = db.Orders
+            .Where(order => order.Client.ClientAddresses
+                .Any(clientAddress => clientAddress.Address.City.Equals(city)))
+            .Include(order2 => order2.Client)
+            .ThenInclude(client => client.ClientAddresses)
+            .ThenInclude(clientAddress => clientAddress.Address)
+            .ToList();
+
+        foreach (Order order in orders)
+        {
+            var clientCity = order.Client?.ClientAddresses.FirstOrDefault()?.Address?.City ?? "N/A";
+
+            Console.WriteLine($"Order: {order.Id}, City: {clientCity} " +
+                $"| Client: {order.Client?.Id}. {order.Client?.FirstName} {order.Client?.LastName} " +
+                $"| Order date: {order.OrderDate} | Total amount: {order.TotalAmount:N2}");
+        }
+    }
 
 
     // Privates methods

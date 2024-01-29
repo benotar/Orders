@@ -23,9 +23,12 @@ DataBaseOperations.AddDataToDataBase(options);
 //DataBaseOperations.PrintMinAmountOrder(options);
 //Console.WriteLine();
 
-DataBaseOperations.PrintMaxAmountOrder(options);
-Console.WriteLine();
+//DataBaseOperations.PrintMaxAmountOrder(options);
+//Console.WriteLine();
 
 //DataBaseOperations.PrintOrderByYearCar(options);
 
-DataBaseOperations.PrintOrdersByClient(options, "Zhmur");
+//DataBaseOperations.PrintOrdersByClient(options, "Zhmur");
+//Console.WriteLine();
+
+DataBaseOperations.PrintOrdersByCity(options, "Dnipro");
