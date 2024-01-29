@@ -39,34 +39,32 @@ public class DataBaseOperations
     {
         using DotnetExambdContext db = new DotnetExambdContext(options);
 
-        var res = db.Orders.FromSqlRaw("SELECT Orders.id, Orders.client_id, Orders.order_date, Orders.total_amount, " +
+        Order? order = db.Orders.FromSqlRaw("SELECT Orders.id, Orders.client_id, Orders.order_date, Orders.total_amount, " +
             "Clients.first_name, Clients.last_name " +
             "FROM Orders " +
             "JOIN Clients ON Clients.id = Orders.client_id " +
             "WHERE Orders.total_amount = (SELECT MIN(Orders.total_amount) FROM Orders)")
-            .Include(o => o.Client);
+            .Include(o => o.Client)
+            .FirstOrDefault();
 
-        foreach (var order in res)
-        {
-            Console.WriteLine($"Order: {order.Id} | Client {order.Client?.Id}. {order.Client?.FirstName} {order.Client?.LastName} | Order date: {order.OrderDate} | Total amount {order.TotalAmount:N2}");
-        }
+        Console.WriteLine($"Order: {order?.Id} | Client {order?.Client?.Id}. {order?.Client?.FirstName} {order?.Client?.LastName} " +
+            $"| Order date: {order?.OrderDate} | Total amount {order?.TotalAmount:N2}");
     }
 
     public static void PrintMaxAmountOrder(DbContextOptions<DotnetExambdContext> options)
     {
         using DotnetExambdContext db = new DotnetExambdContext(options);
 
-        var res = db.Orders.FromSqlRaw("SELECT Orders.id, Orders.client_id, Orders.order_date, Orders.total_amount, " +
+        Order? order = db.Orders.FromSqlRaw("SELECT Orders.id, Orders.client_id, Orders.order_date, Orders.total_amount, " +
             "Clients.first_name, Clients.last_name " +
             "FROM Orders " +
             "JOIN Clients ON Clients.id = Orders.client_id " +
             "WHERE Orders.total_amount = (SELECT MAX(Orders.total_amount) FROM Orders)")
-            .Include(o => o.Client);
+            .Include(o => o.Client)
+            .FirstOrDefault();
 
-        foreach (var order in res)
-        {
-            Console.WriteLine($"Order: {order.Id} | Client {order.Client?.Id}. {order.Client?.FirstName} {order.Client?.LastName} | Order date: {order.OrderDate} | Total amount {order.TotalAmount:N2}");
-        }
+        Console.WriteLine($"Order: {order?.Id} | Client {order?.Client?.Id}. {order?.Client?.FirstName} {order?.Client?.LastName} " +
+            $"| Order date: {order?.OrderDate} | Total amount {order?.TotalAmount:N2}");
     }
 
     public static void PrintOrderByYearCar(DbContextOptions<DotnetExambdContext> options)
@@ -80,7 +78,9 @@ public class DataBaseOperations
             JOIN Clients ON Clients.id = Cars.client_id
             GROUP BY Cars.id, Cars.client_id, Cars.brand, Cars.model, Cars.year,
             Clients.first_name, Clients.last_name
-            ORDER BY Cars.year ASC").Include(c => c.Client).ToList();
+            ORDER BY Cars.year ASC")
+            .Include(c => c.Client)
+            .ToList();
 
         foreach (var car in res)
         {
