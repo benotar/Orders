@@ -33,4 +33,6 @@ DataBaseOperations.AddDataToDataBase(options);
 
 //DataBaseOperations.PrintOrdersByCity(options, "Dnipro");
 
-DataBaseOperations.PrintOrdersByDateRange(options, new DateTime(2014, 01, 29), DateTime.Now);
+//DataBaseOperations.PrintOrdersByDateRange(options, new DateTime(2014, 01, 29), DateTime.Now);
+
+DataBaseOperations.PrintTotalAmountByClient(options, "Zhmur");

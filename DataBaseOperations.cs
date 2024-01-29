@@ -157,7 +157,25 @@ public class DataBaseOperations
         }
     }
 
+    public static void PrintTotalAmountByClient(DbContextOptions<DotnetExambdContext> options, string? clientLastName)
+    {
+        using var db = new DotnetExambdContext(options);
 
+        Client? client = db.Clients
+            .Include(c => c.Orders)
+            .FirstOrDefault(c => c.LastName.Equals(clientLastName));
+
+        if (client is null)
+        {
+            Console.WriteLine($"Client {clientLastName} not found!");
+
+            return;
+        }
+
+        decimal total = client.Orders.Sum(order => order.TotalAmount);
+
+        Console.WriteLine($"Client: {client.FirstName} {client.LastName} | Total amount: {total:N2}");
+    }
 
 
     // Privates methods
