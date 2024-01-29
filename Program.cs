@@ -20,21 +20,24 @@ DbContextOptions<DotnetExambdContext> options = optionsBuilder.UseMySql(connecti
 
 DataBaseOperations.AddDataToDataBase(options);
 
-//DataBaseOperations.PrintMinAmountOrder(options);
-//Console.WriteLine();
+DataBaseOperations.PrintMinAmountOrder(options);
+Console.WriteLine();
 
-//DataBaseOperations.PrintMaxAmountOrder(options);
-//Console.WriteLine();
+DataBaseOperations.PrintMaxAmountOrder(options);
+Console.WriteLine();
 
-//DataBaseOperations.PrintOrderByYearCar(options);
+DataBaseOperations.PrintOrderByYearCar(options);
 
-//DataBaseOperations.PrintOrdersByClient(options, "Zhmur");
-//Console.WriteLine();
+DataBaseOperations.PrintOrdersByClient(options, "Zhmur");
+Console.WriteLine();
 
-//DataBaseOperations.PrintOrdersByCity(options, "Dnipro");
+DataBaseOperations.PrintOrdersByCity(options, "Dnipro");
+Console.WriteLine();
 
-//DataBaseOperations.PrintOrdersByDateRange(options, new DateTime(2014, 01, 29), DateTime.Now);
+DataBaseOperations.PrintOrdersByDateRange(options, new DateTime(2014, 01, 29), DateTime.Now);
+Console.WriteLine();
 
-//DataBaseOperations.PrintTotalAmountByClient(options, "Zhmur");
+DataBaseOperations.PrintTotalAmountByClient(options, "Zhmur");
+Console.WriteLine();
 
 DataBaseOperations.PrintAllClients(options);
