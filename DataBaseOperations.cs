@@ -101,9 +101,10 @@ public class DataBaseOperations
             return;
         }
 
-        List<Order>? orders = db.Orders.Where(order => order.Client.LastName!.Equals(clientLastName))
-        .Include(order2 => order2.Client)
-        .ToList();
+        List<Order>? orders = db.Orders
+            .Where(order => order.Client.LastName!.Equals(clientLastName))
+            .Include(order2 => order2.Client)
+            .ToList();
 
         foreach (Order order in orders)
         {
@@ -127,8 +128,8 @@ public class DataBaseOperations
             .Where(order => order.Client.ClientAddresses
                 .Any(clientAddress => clientAddress.Address.City.Equals(city)))
             .Include(order2 => order2.Client)
-            .ThenInclude(client => client.ClientAddresses)
-            .ThenInclude(clientAddress => clientAddress.Address)
+                .ThenInclude(client => client.ClientAddresses)
+                    .ThenInclude(clientAddress => clientAddress.Address)
             .ToList();
 
         foreach (Order order in orders)
@@ -196,6 +197,7 @@ public class DataBaseOperations
             if (i.Cars.Count > 0)
             {
                 Console.WriteLine("Cars:");
+
                 foreach (var car in i.Cars)
                 {
                     Console.WriteLine($"Car: {car.Id}. Brand: {car.Brand} | Model: {car.Model} | Year: {car.Year}");
@@ -219,9 +221,11 @@ public class DataBaseOperations
             {
                 Console.WriteLine("Addresses: N/A");
             }
+
             if (i.Orders.Count > 0)
             {
                 Console.WriteLine("Orders:");
+
                 foreach (var order in i.Orders)
                 {
                     Console.WriteLine($"Order: {order.Id}. Order date: {order.OrderDate}, Total amount: {order.TotalAmount:N2}");
