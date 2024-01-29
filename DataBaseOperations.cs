@@ -140,6 +140,25 @@ public class DataBaseOperations
         }
     }
 
+    public static void PrintOrdersByDateRange(DbContextOptions<DotnetExambdContext> options, DateTime start, DateTime end)
+    {
+        using var db = new DotnetExambdContext(options);
+
+        List<Order>? orders = db.Orders
+            .Where(order => order.OrderDate >= start && order.OrderDate <= end)
+            .Include(order2 => order2.Client)
+            .OrderBy(order3 => order3.OrderDate)
+            .ToList();
+
+        foreach (var order in orders)
+        {
+            Console.WriteLine($"Order: {order.Id} | Client: {order.Client.FirstName} {order.Client.LastName} " +
+                $"| Order date: {order.OrderDate} | Total amount: {order.TotalAmount:N2}");
+        }
+    }
+
+
+
 
     // Privates methods
     private static void AddClients(DotnetExambdContext db)

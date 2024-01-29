@@ -31,4 +31,6 @@ DataBaseOperations.AddDataToDataBase(options);
 //DataBaseOperations.PrintOrdersByClient(options, "Zhmur");
 //Console.WriteLine();
 
-DataBaseOperations.PrintOrdersByCity(options, "Dnipro");
+//DataBaseOperations.PrintOrdersByCity(options, "Dnipro");
+
+DataBaseOperations.PrintOrdersByDateRange(options, new DateTime(2014, 01, 29), DateTime.Now);
